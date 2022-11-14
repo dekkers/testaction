@@ -21,9 +21,6 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Run install before publishing
-        run: pnpm install
-
       - name: Publish
         run: pnpm publish
         env:
