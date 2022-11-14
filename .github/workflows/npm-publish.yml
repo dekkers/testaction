@@ -1,19 +1,27 @@
-# From https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 name: Publish Package to npmjs
 on:
   release:
     types: [created]
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.2
         with:
-          node-version: '16.x'
+          version: 7
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm publish
+
+      - run: pnpm ci
+      - run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
