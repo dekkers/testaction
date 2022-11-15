@@ -21,6 +21,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish
-        run: pnpm publish --no-git-checks
+        # pnpm checks whether you are on the main branch when running publish,
+        # but github will checkout the tag, so we need to disable the check
+        run: cd testdir && pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
