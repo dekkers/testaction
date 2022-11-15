@@ -1,6 +1,6 @@
 {
   "name": "@dekkers/testaction",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Test github action",
   "main": "index.js",
   "scripts": {
